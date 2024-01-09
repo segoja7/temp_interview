@@ -55,45 +55,6 @@ module "vpc" {
   }
 }
 
-#module "endpoints" {
-#  source                     = "terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
-#  create_security_group      = true
-#  security_group_name_prefix = "${local.name}-vpc-endpoints-"
-#  security_group_description = "VPC endpoint security group"
-#  vpc_id                     = module.vpc.vpc_id
-#  security_group_rules = {
-#    ingress_https = {
-#      description = "HTTPS from VPC"
-#      cidr_blocks = [module.vpc.vpc_cidr_block]
-#    }
-#  }
-#
-#  endpoints = {
-#    #        efs = {
-#    #          # interface endpoint
-#    #          service             = "elasticfilesystem"
-#    #          tags                = { Name = "elasticfilesystem-vpc-endpoint" }
-#    #          subnet_ids          = concat(module.vpc.private_subnets, module.vpc.public_subnets)
-#    #        },
-#    #        rds = {
-#    #          service         = "rds"
-#    #          tags            = { Name = "rds-vpc-endpoint" }
-#    #          subnet_ids          = concat(module.vpc.private_subnets, module.vpc.public_subnets)
-#    #        },
-#    #        kms = {
-#    #          service    = "kms"
-#    #          tags       = { Name = "kms-vpc-endpoint" }
-#    #          subnet_ids          = concat(module.vpc.private_subnets, module.vpc.public_subnets)
-#    #        }
-#    secretsmanager = {
-#      service    = "secretsmanager"
-#      tags       = { Name = "secretsmanager-vpc-endpoint" }
-#      subnet_ids = concat(module.vpc.private_subnets)
-#    }
-#  }
-#
-#  tags = local.tags
-#}
 
 module "efs" {
   source      = "terraform-aws-modules/efs/aws"
