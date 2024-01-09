@@ -253,13 +253,6 @@ module "ecs_service" {
     }
   }
 
-#    volume {
-#    name      = "efs-html"
-#    efs_volume_configuration {
-#      file_system_id = aws_efs_file_system.foo.id
-#      root_directory = "/path/to/my/data"
-#    }
-#  }
   load_balancer = {
     service = {
       target_group_arn = module.alb.target_groups["ex_ecs"].arn
