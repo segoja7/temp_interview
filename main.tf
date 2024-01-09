@@ -217,10 +217,6 @@ module "ecs_service" {
         },
         {
           name  = "WORDPRESS_DATABASE_PASSWORD"
-          value = "#F[*y>W00Wbic4+_HfYUAy9tb~[:"
-        },
-        {
-          name  = "WORDPRESS_DATABASE_PASSWORD"
           value = jsondecode(data.aws_secretsmanager_secret_version.db_password.secret_string)["password"]
         },
         {
@@ -247,7 +243,7 @@ module "ecs_service" {
   volume = {
     wordpress = {
       file_system_id = module.efs.id
-      #      root_directory          = "/bitnami/wordpress"
+      root_directory          = "/bitnami/wordpress"
       transit_encryption      = "ENABLED"
       transit_encryption_port = 2999
       authorization_config = {
@@ -257,6 +253,13 @@ module "ecs_service" {
     }
   }
 
+#    volume {
+#    name      = "efs-html"
+#    efs_volume_configuration {
+#      file_system_id = aws_efs_file_system.foo.id
+#      root_directory = "/path/to/my/data"
+#    }
+#  }
   load_balancer = {
     service = {
       target_group_arn = module.alb.target_groups["ex_ecs"].arn
